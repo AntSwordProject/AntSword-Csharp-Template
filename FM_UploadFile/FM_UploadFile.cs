@@ -49,10 +49,8 @@ public class UploadFile
         {
             B[i / 2] = (byte) Convert.ToInt32(content.Substring(i, 2), 16);
         }
-
-        //filemode是否应该为append？
-        FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
-        fs.Seek(0, SeekOrigin.End);
+        
+        FileStream fs = new FileStream(path, FileMode.Append);
         fs.Write(B, 0, B.Length);
         fs.Close();
         return "1";

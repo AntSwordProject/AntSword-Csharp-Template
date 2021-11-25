@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FM_Retime", "FM_Retime\FM_R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FM_Wget", "FM_Wget\FM_Wget.csproj", "{B3E3CC08-0D77-42FF-9E6F-71B443654304}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Default", "DB_Default\DB_Default.csproj", "{48899469-E067-4D27-AB47-FE11B1676EAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,5 +110,9 @@ Global
 		{B3E3CC08-0D77-42FF-9E6F-71B443654304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E3CC08-0D77-42FF-9E6F-71B443654304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E3CC08-0D77-42FF-9E6F-71B443654304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48899469-E067-4D27-AB47-FE11B1676EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48899469-E067-4D27-AB47-FE11B1676EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48899469-E067-4D27-AB47-FE11B1676EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48899469-E067-4D27-AB47-FE11B1676EAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

