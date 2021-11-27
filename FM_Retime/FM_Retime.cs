@@ -31,7 +31,7 @@ public class Retime
         {
             String path = decode(this.Request.Form["path"]);
             String time = decode(this.Request.Form["time"]);
-            result += this.MkdirCode(path, time);
+            result += this.RetimeCode(path, time);
         }
         catch (Exception e)
         {
@@ -42,7 +42,7 @@ public class Retime
         return true;
     }
 
-    public String MkdirCode(String path, String time)
+    public String RetimeCode(String path, String time)
     {
         DateTime TM = Convert.ToDateTime(time);
         if (Directory.Exists(path))

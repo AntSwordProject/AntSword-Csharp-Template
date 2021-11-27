@@ -48,7 +48,7 @@ public class Listcmd
         int i;
         for (i = 0; i < ss.Length; i++)
         {
-            ret += (ss[i] + "\\t" + (System.IO.File.Exists(ss[i]) ? 1 : 0) + "\\n");
+            ret += (ss[i] + "\t" + (System.IO.File.Exists(ss[i]) ? 1 : 0) + "\n");
         }
 
         return ret;

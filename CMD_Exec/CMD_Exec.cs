@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -47,6 +48,7 @@ public class Exec
     public string ExecuteCmd(String bin, String cmd, String env)
     {
         String ret = "";
+
         ProcessStartInfo c = new ProcessStartInfo(bin);
         Process e = new Process();
         StreamReader OT, ER;
@@ -57,6 +59,22 @@ public class Exec
         c.CreateNoWindow = true;
         e.StartInfo = c;
         c.Arguments = "/c " + cmd;
+        if (env != "")
+        {
+            String[] envarr = Regex.Split(env, "\\|\\|\\|asline\\|\\|\\|");
+            int i;
+            for (i = 0; i < envarr.Length; i++)
+            {
+                String[] ss = Regex.Split(envarr[i], "\\|\\|\\|askey\\|\\|\\|");
+                if (ss.Length != 2)
+                {
+                    continue;
+                }
+
+                c.EnvironmentVariables.Add(ss[0], ss[1]);
+            }
+        }
+
         e.Start();
         OT = e.StandardOutput;
         ER = e.StandardError;
