@@ -12,25 +12,25 @@ module.exports = () => ({
   show_databases: {
     _: `###DATABASE###`,
     'action': 'show_databases',
-    'conn': '#{conn}'
+    'conn': '#{newbase64::conn}'
   },
   show_tables: {
     _: `###DATABASE###`,
     'action': 'show_tables',
-    'conn': '#{conn}',
-    'z1': '#{db}'
+    'conn': '#{newbase64::conn}',
+    'z1': '#{newbase64::dbname}'
   },
   show_columns: {
     _: `###DATABASE###`,
     'action': 'show_columns',
-    'conn': '#{conn}',
-    'db': '#{db}',
-    'z2': '#{table}'
+    'conn': '#{newbase64::conn}',
+    'z1': '#{newbase64::dbname}',
+    'z2': '#{newbase64::table}'
   },
   query: {
     _: `###DATABASE###`,
     'action': 'query',
-    'conn': '#{conn}',
-    'z1': '#{sql}'
+    'conn': '#{newbase64::conn}',
+    'z1': '#{newbase64::sql}'
   }
 })
