@@ -41,12 +41,11 @@ for root, dirs, files in os.walk('.'):
                     print("before: "+spath)
                     with open(spath, "r", encoding="UTF-8") as sf:
                         source = sf.read()
-                        dist = re.sub(r"public\ class\ (.*)",
-                                      "public class Run", source)  # 统一替换类名为Run
+                        #dist = re.sub(r"public\ class\ (.*)","public class Run", source)  # 统一替换类名为Run
 
                     path = os.path.join(tempDir, f).replace("/", "\\")
                     with open(path, "w", encoding="UTF-8") as df:
-                        df.write(dist)
+                        df.write(source)
                     print("after: "+path)
 
                     targetdll = path.replace('.cs', '.dll')

