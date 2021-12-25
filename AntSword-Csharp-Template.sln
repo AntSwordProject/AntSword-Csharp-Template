@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Default", "DB_Default\DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_SqlServer", "DB_SqlServer\DB_SqlServer.csproj", "{864921F9-3525-4E2F-81FC-D39443D98A70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFunc", "TestFunc\TestFunc.csproj", "{A5EE3B2F-0DDB-4C66-B76B-9EC73A181E66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,5 +122,9 @@ Global
 		{864921F9-3525-4E2F-81FC-D39443D98A70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864921F9-3525-4E2F-81FC-D39443D98A70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864921F9-3525-4E2F-81FC-D39443D98A70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5EE3B2F-0DDB-4C66-B76B-9EC73A181E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5EE3B2F-0DDB-4C66-B76B-9EC73A181E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5EE3B2F-0DDB-4C66-B76B-9EC73A181E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5EE3B2F-0DDB-4C66-B76B-9EC73A181E66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
