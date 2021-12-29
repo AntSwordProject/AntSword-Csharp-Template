@@ -55,13 +55,13 @@ namespace FM_Wget
             {
                 try
                 {
-                    Page page = (Page)obj;
-                    this.Response = page.Response;
-                    this.Request = page.Request;
+                    HttpContext context = (HttpContext)obj;
+                    this.Response = context.Response;
+                    this.Request = context.Request;
                 }
                 catch (Exception)
                 {
-                    HttpContext context = (HttpContext)obj;
+                    HttpContext context = HttpContext.Current;
                     this.Response = context.Response;
                     this.Request = context.Request;
                 }

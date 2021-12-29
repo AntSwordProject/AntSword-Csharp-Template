@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 
 namespace BASE_Probedb
 {
@@ -52,13 +51,13 @@ namespace BASE_Probedb
             {
                 try
                 {
-                    Page page = (Page)obj;
-                    this.Response = page.Response;
-                    this.Request = page.Request;
+                    HttpContext context = (HttpContext)obj;
+                    this.Response = context.Response;
+                    this.Request = context.Request;
                 }
                 catch (Exception)
                 {
-                    HttpContext context = (HttpContext)obj;
+                    HttpContext context = HttpContext.Current;
                     this.Response = context.Response;
                     this.Request = context.Request;
                 }
