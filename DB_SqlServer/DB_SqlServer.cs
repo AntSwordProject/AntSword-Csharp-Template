@@ -120,9 +120,7 @@ namespace DB_SqlServer
         {
             String ret = "";
             System.Data.DataSet ds = new System.Data.DataSet();
-            string sql = "use [" + db +
-                         "] select b.name,c.name,c.length from sysobjects a,syscolumns b,systypes c where a.id=b.id and b.xtype=c.xtype and a.name='" +
-                         table + "'";
+            string sql = string.Format("use [{0}];SELECT TOP 0 * FROM {1}", db, table);
             using (SqlDataAdapter dataAdapter =
                 new SqlDataAdapter(sql, conn))
             {
