@@ -67,7 +67,7 @@ namespace BASE_Info
         {
             String ret = "";
             String[] c = Directory.GetLogicalDrives();
-            ret = String.Format("{0}\t", HttpContext.Current.Server.MapPath("/"));
+            ret = String.Format("{0}\t", AppDomain.CurrentDomain.BaseDirectory);
             for (int i = 0; i < c.Length; i++)
                 ret += c[i][0] + ":";
             return ret;
